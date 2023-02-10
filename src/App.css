@@ -1,12 +1,143 @@
 body {
     text-align: center;
+    margin: 0 100px 40px 100px;
+}
+
+button:hover,
+.fa-solid:hover {
+    cursor: pointer;
+}
+
+.new-task-box {
+    border: 2px solid silver;
+    padding: 20px;
+    margin: 5px 0;
+}
+
+.fa-book {
+    padding: 7px;
+    background-color: #05b4c0;
+    color: white;
+    font-size: 12px;
+    border: 1px solid silver;
+    border-radius: 3px;
+    cursor: default;
+}
+
+.todo-input {
+    border: 1px solid silver;
+    border-radius: 2px;
+    padding: 5px 400px 5px 10px;
+}
+
+.new-task-btn {
+    background-color: #05b4c0;
+    color: white;
+    padding: 10px 260px;
+    border: none;
+    border-radius: 3px;
+    margin-top: 20px;
+}
+
+.new-task-btn:hover {
+    background-color: #0699a3;
+}
+
+.btn {
+    background-color: #05b4c0;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    padding: 10px 90px;
+    display: inline-flex;
+    justify-content: space-between;
+    margin-bottom: 50px;
+}
+
+.btn:hover {
+    background-color: #0699a3;
+}
+
+.btn:nth-of-type(2) {
+    margin: 0 30px;
+}
+
+.delete {
+    background-color: #f31f1f;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    padding: 10px 100px;
+    display: inline-flex;
+    justify-content: space-between;
+    margin: 0 20px;
+}
+
+.delete:hover {
+    background-color: #bd1313;
 }
 
 ul li {
     list-style: none;
+    margin-left: 10px;
 }
 
-i {
-    font-size: 25px;
+ul,
+.edit-card {
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid silver;
+    padding: 10px;
+}
+
+.fa-circle-check {
+    color: #0ea80e;
+    font-size: 22px;
+    margin-right: 20px;
+}
+
+.fa-circle-check:hover {
+    color: #077007;
+}
+
+.fa-circle-xmark:hover {
+    color: #bd1313;
+}
+
+.fa-circle-xmark {
+    color: #f31f1f;
+    font-size: 22px;
+    margin: 0 20px;
+}
+
+.hidden-input {
+    padding: 5px 400px 5px 10px;
+    margin-left: 5px;
+    border: 1px solid silver;
+}
+
+.fa-pencil {
+    color: rgb(255, 196, 0);
+    margin: 0 15px 0 10px;
+    font-size: 17px;
+}
+
+.fa-trash {
     color: red;
+    margin-right: 20px;
+    font-size: 17px;
+}
+
+.fa-trash:hover,
+.fa-pencil:hover {
+    font-size: 20px;
+}
+
+.done {
+    text-decoration: line-through;
+    color: #f31f1f;
+}
+
+input[type='checkbox'] {
+    accent-color: #0ea80e;
 }

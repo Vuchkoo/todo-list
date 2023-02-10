@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Button from "../Button/Button";
+import Icon from "../Icon/Icon";
 import Input from "../Input/Input";
 
 export default class TodoItem extends Component {
@@ -8,14 +9,50 @@ export default class TodoItem extends Component {
   }
 
   render() {
+    // console.log(this.props.data);
     return (
-      <ul>
-        <li>{this.props.data.text}</li>
-        <Button
-          text="Delete"
-          onClick={(e) => this.props.onClick(e, this.props.data.id)}
-        />
-      </ul>
+      <div>
+        {this.props.data.id === this.props.editingItem ? (
+          <div className="edit-card">
+            <Input
+              type={this.props.edit}
+              className="hidden-input"
+              onChange={this.props.onChange}
+            />
+            <div>
+              <Icon
+                className="fa-solid fa-circle-check"
+                onClick={this.props.onSave}
+              />
+              <Icon
+                className="fa-solid fa-circle-xmark"
+                onClick={this.props.onExit}
+              />
+            </div>
+          </div>
+        ) : (
+          <ul>
+            <li className={this.props.className}>{this.props.data.text}</li>
+            <div>
+              <Input
+                type="checkbox"
+                checked={this.props.data.isDone}
+                onChange={(e) => {
+                  this.props.onCheckbox(e, this.props.data.id);
+                }}
+              />
+              <Icon
+                className="fa-solid fa-pencil"
+                onClick={(e) => this.props.onEdit(e, this.props.data.id)}
+              />
+              <Icon
+                className="fa-solid fa-trash"
+                onClick={(e) => this.props.onDelete(e, this.props.data.id)}
+              />
+            </div>
+          </ul>
+        )}
+      </div>
     );
   }
 }
