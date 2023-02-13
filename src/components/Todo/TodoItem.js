@@ -17,7 +17,7 @@ export default class TodoItem extends Component {
             <Input
               type={this.props.edit}
               className="hidden-input"
-              onChange={this.props.onChange}
+              onChange={this.props.onEditInput}
             />
             <div>
               <Icon

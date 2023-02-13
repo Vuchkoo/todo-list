@@ -83,8 +83,18 @@ export default class TodoList extends Component {
     this.setState({ editingItem: id });
   };
 
-  saveItem = () => {
-    console.log("saved");
+  saveItem = (e, id) => {
+    this.setState({
+      data: [
+        ...this.state.data?.filter((item) => {
+          if (item.id === id) {
+            return (item.text = this.state.editedInput);
+          }
+          return item;
+        }),
+      ],
+      editingItem: "",
+    });
   };
 
   onExit = () => {
@@ -92,7 +102,14 @@ export default class TodoList extends Component {
   };
 
   editedInput = (e) => {
-    this.setState({ input: e.target.value });
+    this.setState({
+      data: this.state.data.map((item) => {
+        if (item.id === this.state.editingItem) {
+          return { ...item, text: e.target.value };
+        }
+        return item;
+      }),
+    });
   };
 
   render() {
@@ -110,6 +127,7 @@ export default class TodoList extends Component {
                 className="todo-input"
                 placeholder="New Todo"
                 value={this.state.input}
+                onSave={this.saveItem}
               />
               <br />
               <Button
@@ -147,7 +165,7 @@ export default class TodoList extends Component {
                     className={item.isDone ? "done" : ""}
                     editingItem={this.state.editingItem}
                     onEdit={this.editItem}
-                    onChange={this.handleChange}
+                    onEditInput={this.editedInput}
                     onSave={this.saveItem}
                     onExit={this.onExit}
                   />
