@@ -1,58 +1,46 @@
-import React, { Component } from "react";
-import Button from "../Button/Button";
+import React from "react";
 import Icon from "../Icon/Icon";
 import Input from "../Input/Input";
 
-export default class TodoItem extends Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    // console.log(this.props.data);
-    return (
-      <div>
-        {this.props.data.id === this.props.editingItem ? (
-          <div className="edit-card">
-            <Input
-              type={this.props.edit}
-              className="hidden-input"
-              onChange={this.props.onEditInput}
-            />
-            <div>
-              <Icon
-                className="fa-solid fa-circle-check"
-                onClick={this.props.onSave}
-              />
-              <Icon
-                className="fa-solid fa-circle-xmark"
-                onClick={this.props.onExit}
-              />
-            </div>
+const TodoItem = (props) => {
+  return (
+    <div>
+      {props.data.id === props.editingItem ? (
+        <div className="edit-card">
+          <Input
+            type={props.edit}
+            className="hidden-input"
+            onChange={props.onEditInput}
+          />
+          <div>
+            <Icon className="fa-solid fa-circle-check" onClick={props.onSave} />
+            <Icon className="fa-solid fa-circle-xmark" onClick={props.onExit} />
           </div>
-        ) : (
-          <ul>
-            <li className={this.props.className}>{this.props.data.text}</li>
-            <div>
-              <Input
-                type="checkbox"
-                checked={this.props.data.isDone}
-                onChange={(e) => {
-                  this.props.onCheckbox(e, this.props.data.id);
-                }}
-              />
-              <Icon
-                className="fa-solid fa-pencil"
-                onClick={(e) => this.props.onEdit(e, this.props.data.id)}
-              />
-              <Icon
-                className="fa-solid fa-trash"
-                onClick={(e) => this.props.onDelete(e, this.props.data.id)}
-              />
-            </div>
-          </ul>
-        )}
-      </div>
-    );
-  }
-}
+        </div>
+      ) : (
+        <ul>
+          <li className={props.className}>{props.data.text}</li>
+          <div>
+            <Input
+              type="checkbox"
+              checked={props.data.isDone}
+              onChange={(e) => {
+                props.onCheckbox(e, props.data.id);
+              }}
+            />
+            <Icon
+              className="fa-solid fa-pencil"
+              onClick={(e) => props.onEdit(e, props.data.id)}
+            />
+            <Icon
+              className="fa-solid fa-trash"
+              onClick={(e) => props.onDelete(e, props.data.id)}
+            />
+          </div>
+        </ul>
+      )}
+    </div>
+  );
+};
+
+export default TodoItem;

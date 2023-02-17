@@ -1,46 +1,49 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import Button from "../Button/Button";
 import Icon from "../Icon/Icon";
 import Input from "../Input/Input";
 import TodoItem from "./TodoItem";
 
-export default class TodoList extends Component {
-  constructor(props) {
-    super(props);
-  }
-  state = {
-    data: [],
-    input: "",
-    showDone: false,
-    showTodo: false,
-    editingItem: "",
-    editedInput: "",
+const TodoList = (props) => {
+  const [data, setData] = useState([]);
+  const [input, setInput] = useState("");
+  const [done, setDone] = useState(false);
+  const [todo, setTodo] = useState(false);
+  const [editingItem, setEditingItem] = useState("");
+  const [updatedInput, setUpdatedInput] = useState("");
+
+  const handleChange = (e) => {
+    // this.setState({ input: e.target.value });
+    setInput(e.target.value);
   };
 
-  handleChange = (e) => {
-    this.setState({ input: e.target.value });
-  };
-
-  handleClick = () => {
+  const handleClick = () => {
     console.log("click");
-    this.setState({
-      data: [
-        ...this.state.data,
-        { text: this.state.input, id: this.generateRandomId(), isDone: false },
-      ],
-      input: "",
-    });
+    // this.setState({
+    //   data: [
+    //     ...data,
+    //     { text: input, id: this.generateRandomId(), isDone: false },
+    //   ],
+    //   input: "",
+    // });
+    setData([...data, { text: input, id: generateRandomId(), isDone: false }]);
+    setInput("");
   };
 
-  deleteItem = (e, id) => {
-    this.setState({
-      data: this.state.data.filter((item) => {
+  const deleteItem = (e, id) => {
+    // this.setState({
+    //   data: data.filter((item) => {
+    //     return item.id !== id;
+    //   }),
+    // });
+    setData(
+      data.filter((item) => {
         return item.id !== id;
-      }),
-    });
+      })
+    );
   };
 
-  generateRandomId = () => {
+  const generateRandomId = () => {
     let s4 = () => {
       return Math.floor((1 + Math.random()) * 0x10000)
         .toString(16)
@@ -49,142 +52,176 @@ export default class TodoList extends Component {
     return s4() + s4();
   };
 
-  handleCheckbox = (e, id) => {
-    console.log("checked");
-    this.setState({
-      data: this.state.data.map((item, index, array) => {
+  const handleCheckbox = (e, id) => {
+    // console.log("checked");
+    // this.setState({
+    //   data: data.map((item, index, array) => {
+    //     if (item.id === id) {
+    //       return { ...item, isDone: !item.isDone };
+    //     }
+    //     return item;
+    //   }),
+    // });
+    setData(
+      data.map((item, index, array) => {
         if (item.id === id) {
           return { ...item, isDone: !item.isDone };
         }
         return item;
-      }),
-    });
+      })
+    );
   };
 
-  showAll = () => {
-    this.setState({ showDone: true, showTodo: true });
+  const showAll = () => {
+    // this.setState({ showDone: true, showTodo: true });
+    setDone(true);
+    setTodo(true);
   };
-  showDone = () => {
-    this.setState({ showDone: true, showTodo: false });
+  const showDone = () => {
+    // this.setState({ showDone: true, showTodo: false });
+    setDone(true);
+    setTodo(false);
   };
-  showTodo = () => {
-    this.setState({ showDone: false, showTodo: true });
-  };
-
-  deleteDoneTasks = () => {
-    this.setState({ data: this.state.data.filter((item) => !item.isDone) });
-  };
-
-  deleteAllTasks = () => {
-    this.setState({ data: [] });
+  const showTodo = () => {
+    // this.setState({ showDone: false, showTodo: true });
+    setDone(false);
+    setTodo(true);
   };
 
-  editItem = (e, id) => {
-    this.setState({ editingItem: id });
+  const deleteDoneTasks = () => {
+    // this.setState({ data: data.filter((item) => !item.isDone) });
+    setData(data.filter((item) => !item.isDone));
   };
 
-  saveItem = (e, id) => {
-    this.setState({
-      data: [
-        ...this.state.data?.filter((item) => {
-          if (item.id === id) {
-            return (item.text = this.state.editedInput);
-          }
-          return item;
-        }),
-      ],
-      editingItem: "",
-    });
+  const deleteAllTasks = () => {
+    // this.setState({ data: [] });
+    setData([]);
   };
 
-  onExit = () => {
-    this.setState({ editingItem: "" });
+  const editItem = (e, id) => {
+    // this.setState({ editingItem: id });
+    setEditingItem(id);
   };
 
-  editedInput = (e) => {
-    this.setState({
-      data: this.state.data.map((item) => {
-        if (item.id === this.state.editingItem) {
-          return { ...item, text: e.target.value };
+  const saveItem = (e, id) => {
+    // this.setState({
+    //   data: [
+    //     ...data?.filter((item) => {
+    //       if (item.id === id) {
+    //         return (item.text = editedInput);
+    //       }
+    //       return item;
+    //     }),
+    //   ],
+    //   editingItem: "",
+    // });
+    setData([
+      ...data?.filter((item) => {
+        if (item.id === id) {
+          return (item.text = updatedInput);
         }
         return item;
       }),
-    });
+    ]);
+    setEditingItem("");
   };
 
-  render() {
-    console.log(this.state);
-    return (
-      <div>
-        <form onSubmit={(e) => e.preventDefault()}>
-          <div>
-            <h1>Todo Input</h1>
-            <div className="new-task-box">
-              <Icon className="fa-solid fa-book" />
-              <Input
-                type="text"
-                onChange={this.handleChange}
-                className="todo-input"
-                placeholder="New Todo"
-                value={this.state.input}
-                onSave={this.saveItem}
-              />
-              <br />
-              <Button
-                text="Add new task"
-                onClick={this.handleClick}
-                className="new-task-btn"
-              />
-            </div>
-          </div>
-          <div>
-            <h2>Todo List</h2>
-            <Button text="All" className="btn" onClick={this.showAll} />
-            <Button text="Done" className="btn" onClick={this.showDone} />
-            <Button text="Todo" className="btn" onClick={this.showTodo} />
-            {this.state.data
-              ?.filter((item) => {
-                if (this.state.showDone && item.isDone) {
-                  return true;
-                }
-                if (this.state.showTodo && !item.isDone) {
-                  return true;
-                }
-                if (!this.state.showDone && !this.state.showTodo) {
-                  return true;
-                }
-                return false;
-              })
-              .map((item, index) => {
-                return (
-                  <TodoItem
-                    data={item}
-                    key={index}
-                    onDelete={this.deleteItem}
-                    onCheckbox={(e) => this.handleCheckbox(e, item.id)}
-                    className={item.isDone ? "done" : ""}
-                    editingItem={this.state.editingItem}
-                    onEdit={this.editItem}
-                    onEditInput={this.editedInput}
-                    onSave={this.saveItem}
-                    onExit={this.onExit}
-                  />
-                );
-              })}
+  const onExit = () => {
+    // this.setState({ editingItem: "" });
+    setEditingItem("");
+  };
+
+  const editedInput = (e) => {
+    // this.setState({
+    //   data: data.map((item) => {
+    //     if (item.id === editingItem) {
+    //       return { ...item, text: e.target.value };
+    //     }
+    //     return item;
+    //   }),
+    // });
+    setData(
+      data.map((item) => {
+        if (item.id === editingItem) {
+          return { ...item, text: e.target.value };
+        }
+        return item;
+      })
+    );
+  };
+
+  return (
+    <div>
+      <form onSubmit={(e) => e.preventDefault()}>
+        <div>
+          <h1>Todo Input</h1>
+          <div className="new-task-box">
+            <Icon className="fa-solid fa-book" />
+            <Input
+              type="text"
+              onChange={handleChange}
+              className="todo-input"
+              placeholder="New Todo"
+              value={input}
+              onSave={saveItem}
+            />
             <br />
             <Button
-              text="Delete done tasks"
-              className="delete"
-              onClick={this.deleteDoneTasks}
-            />
-            <Button
-              text="Delete all tasks"
-              className="delete"
-              onClick={this.deleteAllTasks}
+              text="Add new task"
+              onClick={handleClick}
+              className="new-task-btn"
             />
           </div>
-        </form>
-      </div>
-    );
-  }
-}
+        </div>
+        <div>
+          <h2>Todo List</h2>
+          <Button text="All" className="btn" onClick={showAll} />
+          <Button text="Done" className="btn" onClick={showDone} />
+          <Button text="Todo" className="btn" onClick={showTodo} />
+          {data
+            ?.filter((item) => {
+              if (done && item.isDone) {
+                return true;
+              }
+              if (todo && !item.isDone) {
+                return true;
+              }
+              if (!done && !todo) {
+                return true;
+              }
+              return false;
+            })
+            .map((item, index) => {
+              return (
+                <TodoItem
+                  data={item}
+                  key={index}
+                  onDelete={deleteItem}
+                  onCheckbox={(e) => handleCheckbox(e, item.id)}
+                  className={item.isDone ? "done" : ""}
+                  editingItem={editingItem}
+                  onEdit={editItem}
+                  onEditInput={editedInput}
+                  onSave={saveItem}
+                  onExit={onExit}
+                />
+              );
+            })}
+          <br />
+          <Button
+            text="Delete done tasks"
+            className="delete"
+            onClick={deleteDoneTasks}
+          />
+          <Button
+            text="Delete all tasks"
+            className="delete"
+            onClick={deleteAllTasks}
+          />
+        </div>
+      </form>
+    </div>
+  );
+};
+
+export default TodoList;

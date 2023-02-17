@@ -1,20 +1,16 @@
-import React, { Component } from "react";
+import React from "react";
 
-export default class Input extends Component {
-  constructor(props) {
-    super(props);
-  }
+const Input = (props) => {
+  return (
+    <input
+      type={props.type}
+      onChange={props.onChange}
+      checked={props.checked}
+      className={props.className}
+      placeholder={props.placeholder}
+      value={props.value}
+    />
+  );
+};
 
-  render() {
-    return (
-      <input
-        type={this.props.type}
-        onChange={this.props.onChange}
-        checked={this.props.checked}
-        className={this.props.className}
-        placeholder={this.props.placeholder}
-        value={this.props.value}
-      />
-    );
-  }
-}
+export default Input;
