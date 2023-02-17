@@ -13,29 +13,15 @@ const TodoList = (props) => {
   const [updatedInput, setUpdatedInput] = useState("");
 
   const handleChange = (e) => {
-    // this.setState({ input: e.target.value });
     setInput(e.target.value);
   };
 
   const handleClick = () => {
-    console.log("click");
-    // this.setState({
-    //   data: [
-    //     ...data,
-    //     { text: input, id: this.generateRandomId(), isDone: false },
-    //   ],
-    //   input: "",
-    // });
     setData([...data, { text: input, id: generateRandomId(), isDone: false }]);
     setInput("");
   };
 
   const deleteItem = (e, id) => {
-    // this.setState({
-    //   data: data.filter((item) => {
-    //     return item.id !== id;
-    //   }),
-    // });
     setData(
       data.filter((item) => {
         return item.id !== id;
@@ -53,15 +39,6 @@ const TodoList = (props) => {
   };
 
   const handleCheckbox = (e, id) => {
-    // console.log("checked");
-    // this.setState({
-    //   data: data.map((item, index, array) => {
-    //     if (item.id === id) {
-    //       return { ...item, isDone: !item.isDone };
-    //     }
-    //     return item;
-    //   }),
-    // });
     setData(
       data.map((item, index, array) => {
         if (item.id === id) {
@@ -73,48 +50,31 @@ const TodoList = (props) => {
   };
 
   const showAll = () => {
-    // this.setState({ showDone: true, showTodo: true });
     setDone(true);
     setTodo(true);
   };
   const showDone = () => {
-    // this.setState({ showDone: true, showTodo: false });
     setDone(true);
     setTodo(false);
   };
   const showTodo = () => {
-    // this.setState({ showDone: false, showTodo: true });
     setDone(false);
     setTodo(true);
   };
 
   const deleteDoneTasks = () => {
-    // this.setState({ data: data.filter((item) => !item.isDone) });
     setData(data.filter((item) => !item.isDone));
   };
 
   const deleteAllTasks = () => {
-    // this.setState({ data: [] });
     setData([]);
   };
 
   const editItem = (e, id) => {
-    // this.setState({ editingItem: id });
     setEditingItem(id);
   };
 
   const saveItem = (e, id) => {
-    // this.setState({
-    //   data: [
-    //     ...data?.filter((item) => {
-    //       if (item.id === id) {
-    //         return (item.text = editedInput);
-    //       }
-    //       return item;
-    //     }),
-    //   ],
-    //   editingItem: "",
-    // });
     setData([
       ...data?.filter((item) => {
         if (item.id === id) {
@@ -127,19 +87,10 @@ const TodoList = (props) => {
   };
 
   const onExit = () => {
-    // this.setState({ editingItem: "" });
     setEditingItem("");
   };
 
   const editedInput = (e) => {
-    // this.setState({
-    //   data: data.map((item) => {
-    //     if (item.id === editingItem) {
-    //       return { ...item, text: e.target.value };
-    //     }
-    //     return item;
-    //   }),
-    // });
     setData(
       data.map((item) => {
         if (item.id === editingItem) {
